@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Editor Typography ───────────────────────────────────────────────────── */
+.editor-area {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: #231f1b;
+  caret-color: #2563EB;
+  outline: none;
+  white-space: pre-wrap;
+  word-break: break-word;
+  min-height: 100%;
+}
+
+.editor-area:focus {
+  outline: none;
+}
+
+/* Placeholder text */
+.editor-area:empty::before {
+  content: attr(data-placeholder);
+  color: #a0937a;
+  pointer-events: none;
+  font-style: italic;
+}
+
+/* ── Remote cursor ───────────────────────────────────────────────────────── */
+.remote-cursor {
+  position: relative;
+  display: inline;
+}
+
+.remote-cursor-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.2em;
+  vertical-align: text-bottom;
+  border-radius: 1px;
+  animation: cursorBlink 1.2s ease-in-out infinite;
+  pointer-events: none;
+  margin-left: -1px;
+}
+
+.remote-cursor-label {
+  position: absolute;
+  top: -1.5em;
+  left: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 1px 5px;
+  border-radius: 3px;
+  white-space: nowrap;
+  color: white;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.remote-cursor:hover .remote-cursor-label {
+  opacity: 1;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── Scrollbars ─────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d8d2c4; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #bfb59f; }
+
+/* ── Connection status dot ───────────────────────────────────────────────── */
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.status-dot.connected    { background: #22c55e; animation: pulseDot 2s ease-in-out infinite; }
+.status-dot.connecting   { background: #f59e0b; animation: pulseDot 1s ease-in-out infinite; }
+.status-dot.disconnected { background: #ef4444; }
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.6; transform: scale(0.85); }
+}
